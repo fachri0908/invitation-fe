@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brand-primary: #4f46e5;
+    --color-brand-secondary: #7c3aed;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+  }
+}
