@@ -3,6 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { Spinner } from "@/components/atoms/Spinner";
 import { findTemplateById } from "@/templates/registry";
 import { elegantScriptFixture } from "@/templates/elegant-script/fixture";
+import { floweringForestFixture } from "@/templates/flowering-forest/fixture";
 import type { InvitationData } from "@/templates/types";
 import { ROUTE_PATHS } from "@/shared/constants/routes";
 
@@ -24,6 +25,7 @@ export function TemplatePreviewPage() {
   // Map fixture data per templateId — extend this as new templates are added
   const fixtureMap: Record<string, InvitationData> = {
     "elegant-script": elegantScriptFixture,
+    "flowering-forest": floweringForestFixture,
   };
 
   const data = fixtureMap[entry.id];

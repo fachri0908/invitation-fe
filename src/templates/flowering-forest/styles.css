@@ -1,0 +1,356 @@
+/*
+ * Flowering Forest — scoped styles.
+ * Everything here is namespaced under `.flowering-forest-template` and uses
+ * `ff-`/`ff*` prefixed classes/keyframes so this template can never bleed
+ * into (or collide with) the rest of the app or other templates. Imported
+ * only by this template's index.tsx, so it's code-split with it.
+ */
+
+.flowering-forest-template {
+  --ff-50: #f2f7f6;
+  --ff-100: #e3f3f0;
+  --ff-200: #a6f0e6;
+  --ff-300: #5fddcb;
+  --ff-400: #1bb7a6;
+  --ff-500: #129e8f;
+  --ff-600: #0b7a75;
+  --ff-700: #0a5a56;
+  --ff-800: #062a3b;
+  --ff-900: #041a26;
+  --ff-font-display: "Cormorant Garamond", ui-serif, serif;
+  --ff-font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --ff-font-script: "Great Vibes", cursive;
+
+  font-family: var(--ff-font-body);
+  color: var(--ff-900);
+}
+
+.ff-font-display {
+  font-family: var(--ff-font-display);
+}
+.ff-font-script {
+  font-family: var(--ff-font-script);
+}
+
+.ff-shimmer-text {
+  background-image: linear-gradient(
+    110deg,
+    #062a3b 0%,
+    #129e8f 28%,
+    #062a3b 50%,
+    #129e8f 72%,
+    #062a3b 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: ffShimmerSweep 7s linear infinite;
+}
+
+.ff-glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.22) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px -10px rgba(6, 42, 59, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+@media (pointer: coarse) {
+  .ff-glass-card {
+    background: rgba(244, 250, 249, 0.82);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.ff-shadow-ice {
+  box-shadow: 0 10px 30px -10px rgba(27, 183, 166, 0.55);
+}
+
+.ff-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.ff-no-scrollbar {
+  scrollbar-width: none;
+}
+.ff-preserve-3d {
+  transform-style: preserve-3d;
+}
+.ff-perspective {
+  perspective: 1200px;
+}
+
+/* ───── reveal-on-scroll entrances ─────────────────────────────────────── */
+.ff-reveal,
+.ff-reveal-up,
+.ff-reveal-down,
+.ff-reveal-left,
+.ff-reveal-right,
+.ff-reveal-scale,
+.ff-reveal-zoom,
+.ff-reveal-zoomout,
+.ff-reveal-blur,
+.ff-reveal-flip,
+.ff-reveal-tilt-l,
+.ff-reveal-tilt-r,
+.ff-reveal-rotate,
+.ff-reveal-swing {
+  opacity: 0;
+  transition: opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1), transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--ff-reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+.ff-reveal,
+.ff-reveal-up {
+  transform: translate3d(0, 32px, 0);
+}
+.ff-reveal-down {
+  transform: translate3d(0, -32px, 0);
+}
+.ff-reveal-left {
+  transform: translate3d(-64px, 0, 0);
+}
+.ff-reveal-right {
+  transform: translate3d(64px, 0, 0);
+}
+.ff-reveal-scale {
+  transform: scale(0.9);
+}
+.ff-reveal-zoom {
+  transform: scale(0.45);
+}
+.ff-reveal-zoomout {
+  transform: scale(1.4);
+  filter: blur(10px);
+}
+.ff-reveal-blur {
+  transform: translate3d(0, 24px, 0);
+  filter: blur(14px);
+}
+.ff-reveal-flip {
+  transform: perspective(900px) rotateX(-75deg);
+  transform-origin: 50% 100%;
+}
+.ff-reveal-tilt-l {
+  transform: perspective(900px) rotateY(-55deg) translate3d(-30px, 0, 0);
+  transform-origin: left center;
+}
+.ff-reveal-tilt-r {
+  transform: perspective(900px) rotateY(55deg) translate3d(30px, 0, 0);
+  transform-origin: right center;
+}
+.ff-reveal-rotate {
+  transform: rotate(-22deg) translate3d(0, 30px, 0) scale(0.85);
+}
+.ff-reveal-swing {
+  transform: rotate(8deg) translate3d(0, -20px, 0);
+  transform-origin: top center;
+}
+[data-revealed="true"] .ff-reveal,
+[data-revealed="true"] .ff-reveal-up,
+[data-revealed="true"] .ff-reveal-down,
+[data-revealed="true"] .ff-reveal-left,
+[data-revealed="true"] .ff-reveal-right,
+[data-revealed="true"] .ff-reveal-scale,
+[data-revealed="true"] .ff-reveal-zoom,
+[data-revealed="true"] .ff-reveal-zoomout,
+[data-revealed="true"] .ff-reveal-blur,
+[data-revealed="true"] .ff-reveal-flip,
+[data-revealed="true"] .ff-reveal-tilt-l,
+[data-revealed="true"] .ff-reveal-tilt-r,
+[data-revealed="true"] .ff-reveal-rotate,
+[data-revealed="true"] .ff-reveal-swing {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Pause idle drift animations on off-screen sections — only the in-view
+   section animates, cutting most of the idle animation load. */
+.flowering-forest-template [data-section][data-active="false"] .ff-animate-sway,
+.flowering-forest-template [data-section][data-active="false"] .ff-animate-swayslow,
+.flowering-forest-template [data-section][data-active="false"] .ff-animate-float,
+.flowering-forest-template [data-section][data-active="false"] .ff-animate-drift {
+  animation-play-state: paused;
+}
+
+/* 3D card-turn between sections — pointer-fine + motion-ok only, so touch
+   devices keep the cheap flat scroll. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .flowering-forest-template [data-section] {
+    transform: rotateX(calc(var(--ff-p, 0) * 7deg)) scale(calc(1 - var(--ff-p, 0) * var(--ff-p, 0) * 0.05));
+    transform-origin: center center;
+    will-change: transform;
+  }
+}
+
+/* ───── idle drift / keyframes ──────────────────────────────────────────── */
+.ff-animate-float {
+  animation: ffFloat 6s ease-in-out infinite;
+}
+.ff-animate-sway {
+  animation: ffSway 6s ease-in-out infinite;
+}
+.ff-animate-swayslow {
+  animation: ffSwaySlow 9s ease-in-out infinite;
+}
+.ff-animate-fall {
+  animation: ffFall 18s linear infinite;
+}
+.ff-animate-bokeh {
+  animation: ffBokeh 12s ease-in-out infinite;
+}
+.ff-animate-aurora {
+  animation: ffAurora 26s ease-in-out infinite;
+}
+.ff-animate-gateBloomIn {
+  animation: ffGateBloomIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.ff-animate-gatePart {
+  animation: ffGatePart 1500ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.ff-animate-flapOpen {
+  animation: ffFlapOpen 900ms cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+.ff-animate-letterRise {
+  animation: ffLetterRise 1400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.ff-animate-envFade {
+  animation: ffEnvFade 700ms ease-in forwards;
+}
+.ff-animate-birdCross {
+  animation: ffBirdCross 1900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.ff-animate-wingFlap {
+  animation: ffWingFlap 260ms ease-in-out infinite;
+}
+.ff-animate-sweepAcross {
+  animation: ffSweepAcross 1500ms cubic-bezier(0.36, 0, 0.2, 1) forwards;
+}
+.ff-animate-confettiOut {
+  animation: ffConfettiOut 1700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.ff-animate-scrollDot {
+  animation: ffScrollDot 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.ff-animate-sparkle {
+  animation: ffSparkle 900ms ease-out forwards;
+}
+.ff-animate-pulseRing {
+  animation: ffPulseRing 2.4s ease-out infinite;
+}
+.ff-animate-spinSlow {
+  animation: ffSpinSlow 90s linear infinite;
+}
+
+@keyframes ffFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes ffSway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes ffSwaySlow {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+@keyframes ffFall {
+  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.85; }
+  90% { opacity: 0.85; }
+  100% { transform: translate3d(40px, 110vh, 0) rotate(360deg); opacity: 0; }
+}
+@keyframes ffBokeh {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate3d(20px, -30px, 0) scale(1.18); opacity: 0.95; }
+}
+@keyframes ffAurora {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(40px, -30px, 0) scale(1.25); }
+}
+@keyframes ffShimmerSweep {
+  0% { background-position: -200% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes ffGateBloomIn {
+  0% { opacity: 0; transform: scale(0.6) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes ffGatePart {
+  0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+  35% {
+    opacity: 1;
+    transform: translate(calc(var(--tx) * -0.18), calc(var(--ty) * -0.18)) scale(1.08) rotate(calc(var(--rot) * 0.3));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx) * -1.25), calc(var(--ty) * -1.25)) scale(1.22) rotate(var(--rot));
+  }
+}
+@keyframes ffFlapOpen {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-176deg); }
+}
+@keyframes ffLetterRise {
+  0% { transform: translateY(28%) scale(0.92); opacity: 0.6; }
+  55% { transform: translateY(-46%) scale(1); opacity: 1; }
+  100% { transform: translateY(-46%) scale(1); opacity: 1; }
+}
+@keyframes ffEnvFade {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+@keyframes ffBirdCross {
+  0% {
+    transform: translate3d(var(--bx0, -30vw), var(--by0, 40vh), 0) rotate(var(--brot, 8deg)) scale(var(--bs, 1));
+    opacity: 0;
+  }
+  12% { opacity: 1; }
+  50% {
+    transform: translate3d(50vw, var(--bymid, 28vh), 0) rotate(var(--brot, 8deg)) scale(var(--bs, 1));
+  }
+  88% { opacity: 1; }
+  100% {
+    transform: translate3d(var(--bx1, 130vw), var(--by1, 34vh), 0) rotate(var(--brot, 8deg)) scale(var(--bs, 1));
+    opacity: 0;
+  }
+}
+@keyframes ffWingFlap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.45); }
+}
+@keyframes ffSweepAcross {
+  0% { transform: translate3d(var(--sx0, -20vw), var(--sy0, 0), 0) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translate3d(var(--sx1, 120vw), var(--sy1, 0), 0) rotate(var(--srot, 300deg)); opacity: 0; }
+}
+@keyframes ffConfettiOut {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+  60% { opacity: 1; }
+  100% {
+    transform: translate(calc(-50% + var(--cx, 0px)), calc(-50% + var(--cy, 0px))) scale(1) rotate(220deg);
+    opacity: 0;
+  }
+}
+@keyframes ffScrollDot {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+@keyframes ffSparkle {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-50%, calc(-50% - 40px)) scale(0); opacity: 0; }
+}
+@keyframes ffPulseRing {
+  0% { transform: scale(0.85); opacity: 0.85; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@keyframes ffSpinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

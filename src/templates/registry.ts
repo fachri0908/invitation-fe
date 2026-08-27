@@ -31,6 +31,18 @@ export const templateRegistry: TemplateRegistryEntry[] = [
       import("./elegant-script/index").then((m) => ({ default: m.ElegantScriptTemplate }))
     ),
   },
+  {
+    id: "flowering-forest",
+    name: "Flowering Forest",
+    description:
+      "An immersive, animation-rich wedding invitation with a floral envelope intro, snap-scrolling sections, parallax florals, and a countdown timer.",
+    category: "Wedding",
+    thumbnailUrl: null,
+    accentColor: "bg-teal-50",
+    component: React.lazy(() =>
+      import("./flowering-forest/index").then((m) => ({ default: m.FloweringForestTemplate }))
+    ),
+  },
 ];
 
 /** Look up a registry entry by template id. Returns undefined if not found. */
