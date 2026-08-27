@@ -21,7 +21,7 @@ export class ApiClientError extends Error {
 
 function createApiClient(): AxiosInstance {
   const instance = axios.create({
-    baseURL: `${API_BASE_URL}/v1`,
+    baseURL: `${API_BASE_URL}/v1`,   // resolves to /api/v1 — proxied by Vite
     headers: { "Content-Type": "application/json" },
     timeout: 10_000,
   });

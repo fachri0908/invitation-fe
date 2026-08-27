@@ -12,7 +12,9 @@ export function useLogin() {
   return useMutation({
     mutationFn: async (credentials: { email: string; password: string }) => {
       const { accessToken } = await loginRequest(credentials);
-      const user = await fetchCurrentUserRequest();
+      // Pass the token directly — localStorage isn't written until onSuccess,
+      // so the interceptor can't pick it up at this point.
+      const user = await fetchCurrentUserRequest(accessToken);
       return { accessToken, user };
     },
     onSuccess: ({ accessToken, user }) => {

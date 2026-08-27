@@ -19,7 +19,9 @@ export async function loginRequest(credentials: LoginCredentials): Promise<AuthT
   return response.data.data;
 }
 
-export async function fetchCurrentUserRequest(): Promise<User> {
-  const response = await apiClient.get<ApiSuccessResponse<User>>("/auth/me");
+export async function fetchCurrentUserRequest(accessToken: string): Promise<User> {
+  const response = await apiClient.get<ApiSuccessResponse<User>>("/auth/me", {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
   return response.data.data;
 }
